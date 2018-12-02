@@ -18,12 +18,14 @@ public class Main {
 
 	public static void main(String[] args) {
 		Main app = new Main();
-		//Professor newProf = new Professor("132652415", "Mike Vison", "M", 49, "Senior", "Administration", "777");
+		Professor newProf = new Professor("132652415", "Mike Vison", "M", 49, "Senior", "Administration", "777");
 		
 		app.connect();
 		
 		app.listAllData();
-		//app.addFaculty(newProf);
+		app.addFaculty(newProf);
+		app.listAllData();
+		app.removeFaculty(newProf);
 		app.listAllData();
 	}
 
@@ -149,26 +151,37 @@ public class Main {
 
 	}
 
-	 public void addFaculty(Professor prof){
-		 try {
-			 String query = "INSERT INTO \"Professor\" VALUES (?,?,?,?,?,?,?);"; 
-			 PreparedStatement pstmt = conn.prepareStatement(query);
-			 pstmt.setString(1, prof.getSsn());
-			 pstmt.setString(2, prof.getName());
-			 pstmt.setString(3, prof.getGender());
-			 pstmt.setInt(4, prof.getAge());
-			 pstmt.setString(5, prof.getRank());
-			 pstmt.setString(6, prof.getSpecialty());
-			 pstmt.setString(7, prof.getWorksIn());
+	public void addFaculty(Professor prof){
+		try {
+			String query = "INSERT INTO \"Professor\" VALUES (?,?,?,?,?,?,?);"; 
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, prof.getSsn());
+			pstmt.setString(2, prof.getName());
+			pstmt.setString(3, prof.getGender());
+			pstmt.setInt(4, prof.getAge());
+			pstmt.setString(5, prof.getRank());
+			pstmt.setString(6, prof.getSpecialty());
+			pstmt.setString(7, prof.getWorksIn());
 			
-			 pstmt.execute();
+			pstmt.execute();
 			 
-			 pstmt.close();
-		 }catch(Exception e){
-			 e.printStackTrace();
-		 }
-		 System.out.println(prof.getName() + " added to Professor Table");
-	 }
+			pstmt.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		System.out.println(prof.getName() + " added to Professor Table");
+	}
+	public void removeFaculty(Professor prof) {
+		try {
+			String query = "DELETE FROM \"Professor\" WHERE \"SSN\" = ?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, prof.getSsn());
+			pstmt.execute();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(prof.getName() + " removed to Professor Table");
+	}
 }
 
 	
