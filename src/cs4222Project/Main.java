@@ -1,13 +1,14 @@
 package cs4222Project;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class Main {
 
@@ -27,7 +28,8 @@ public class Main {
 //		app.addFaculty(newProf);
 //		app.listAllData();
 //		app.removeFaculty(newProf);
-		app.addProj(newProj);
+//		app.addProj(newProj);
+		app.removeProject(newProj);
 		app.listAllData();
 	}
 
@@ -182,20 +184,23 @@ public class Main {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(prof.getName() + " removed to Professor Table");
+		System.out.println(prof.getName() + " removed from Professor Table");
 	}
 	
 	public void addProj(Project proj){
 		try {
-			java.util.Date = new SimpleDateFormat().parse();
+			Date stDate= new SimpleDateFormat("yyy-MM-dd").parse(proj.getStDate());
+			java.sql.Date stDateSql = new java.sql.Date(stDate.getTime());
+			Date edDate= new SimpleDateFormat("yyy-MM-dd").parse(proj.getEdDate());
+			java.sql.Date edDateSql = new java.sql.Date(edDate.getTime());
 			
-			String query = "INSERT INTO \"Professor\" VALUES (?,?,?,?,?,?);"; 
+			String query = "INSERT INTO \"Project\" VALUES (?,?,?,?,?,?);"; 
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			
 			pstmt.setString(1, proj.getProjNo());
 			pstmt.setString(2, proj.getSponsor());
-			pstmt.setDate(3, Date.valueOf(proj.getStDate()));
-			pstmt.setDate(4, Date.valueOf(proj.getEdDate()));
+			pstmt.setDate(3, stDateSql);
+			pstmt.setDate(4, edDateSql);
 			pstmt.setString(5, proj.getBudget());
 			pstmt.setString(6, proj.getPricipalInvestigator());
 			
@@ -206,6 +211,18 @@ public class Main {
 			e.printStackTrace();
 		}
 		System.out.println(proj.getProjNo() + " added to Project Table");
+	}
+	
+	public void removeProject(Project proj) {
+		try {
+			String query = "DELETE FROM \"Project\" WHERE \"ProjectNumber\" = ?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, proj.getProjNo());
+			pstmt.execute();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(proj.getProjNo() + " removed from Project Table");
 	}
 }
 
