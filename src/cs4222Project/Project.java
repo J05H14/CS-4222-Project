@@ -5,19 +5,19 @@ import java.sql.Date;
 public class Project {
 	private String projNo;
 	private String sponsor;
-	private Date stDate;
-	private Date edDate;
+	private String stDate;
+	private String edDate;
 	private String budget;
-	private String pi;
+	private String pricipalInvestigator;
 	
-	public Project(String projNo, String sponsor, Date stDate, Date edDate, String budget, String pi) {
+	public Project(String projNo, String sponsor, String stDate, String edDate, String budget, String pi) {
 		super();
 		this.projNo = projNo;
 		this.sponsor = sponsor;
 		this.stDate = stDate;
 		this.edDate = edDate;
 		this.budget = budget;
-		this.pi = pi;
+		this.pricipalInvestigator = pi;
 	}
 	
 	public String getProjNo() {
@@ -32,16 +32,16 @@ public class Project {
 	public void setSponsor(String sponsor) {
 		this.sponsor = sponsor;
 	}
-	public Date getStDate() {
+	public String getStDate() {
 		return stDate;
 	}
-	public void setStDate(Date stDate) {
+	public void setStDate(String stDate) {
 		this.stDate = stDate;
 	}
-	public Date getEdDate() {
+	public String getEdDate() {
 		return edDate;
 	}
-	public void setEdDate(Date edDate) {
+	public void setEdDate(String edDate) {
 		this.edDate = edDate;
 	}
 	public String getBudget() {
@@ -50,10 +50,10 @@ public class Project {
 	public void setBudget(String budget) {
 		this.budget = budget;
 	}
-	public String getPi() {
-		return pi;
+	public String getPricipalInvestigator() {
+		return pricipalInvestigator;
 	}
-	public void setPi(String pi) {
-		this.pi = pi;
+	public void setPricipalInvestigator(String pi) {
+		this.pricipalInvestigator = pi;
 	}
 }

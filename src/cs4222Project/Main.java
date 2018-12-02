@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Date;
 
 public class Main {
 
@@ -19,13 +20,14 @@ public class Main {
 	public static void main(String[] args) {
 		Main app = new Main();
 		Professor newProf = new Professor("132652415", "Mike Vison", "M", 49, "Senior", "Administration", "777");
-		
+		Project newProj = new Project("5250", "LA City", "2018-08-27", "2019-10-16", "$120,000", "246810120");
 		app.connect();
 		
 		app.listAllData();
 //		app.addFaculty(newProf);
 //		app.listAllData();
 //		app.removeFaculty(newProf);
+		app.addProj(newProj);
 		app.listAllData();
 	}
 
@@ -181,6 +183,29 @@ public class Main {
 			e.printStackTrace();
 		}
 		System.out.println(prof.getName() + " removed to Professor Table");
+	}
+	
+	public void addProj(Project proj){
+		try {
+			java.util.Date = new SimpleDateFormat().parse();
+			
+			String query = "INSERT INTO \"Professor\" VALUES (?,?,?,?,?,?);"; 
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, proj.getProjNo());
+			pstmt.setString(2, proj.getSponsor());
+			pstmt.setDate(3, Date.valueOf(proj.getStDate()));
+			pstmt.setDate(4, Date.valueOf(proj.getEdDate()));
+			pstmt.setString(5, proj.getBudget());
+			pstmt.setString(6, proj.getPricipalInvestigator());
+			
+			pstmt.execute();
+			 
+			pstmt.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		System.out.println(proj.getProjNo() + " added to Project Table");
 	}
 }
 
