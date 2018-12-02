@@ -23,9 +23,9 @@ public class Main {
 		app.connect();
 		
 		app.listAllData();
-		app.addFaculty(newProf);
-		app.listAllData();
-		app.removeFaculty(newProf);
+//		app.addFaculty(newProf);
+//		app.listAllData();
+//		app.removeFaculty(newProf);
 		app.listAllData();
 	}
 
